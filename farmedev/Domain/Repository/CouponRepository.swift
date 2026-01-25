@@ -12,7 +12,7 @@ protocol CouponRepository {
     
     func getCouponsMock() async throws -> [Coupon]
     
-    func getCouponsCategories() -> [FamilyCategory]
+    func getCouponsCategories() -> [CouponAnswer.FamilyCategory]
     
     func searchCampaingPredictive(query: String, campaings: String) async throws -> CampaingPredictive
 }

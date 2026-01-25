@@ -23,7 +23,7 @@ final class CouponUseCase {
         try await couponRepository.getCouponsMock()
     }
     
-    func getCouponsCategories() -> [FamilyCategory] {
+    func getCouponsCategories() -> [CouponAnswer.FamilyCategory] {
         couponRepository.getCouponsCategories()
     }
     
