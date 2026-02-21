@@ -8,129 +8,233 @@
 import Foundation
 
 final class ProductCloudDataStore: ProductDataStore {
-    
+
+    private let apiClient: APIClientProtocol
+
+    init(apiClient: APIClientProtocol = APIClient()) {
+        self.apiClient = apiClient
+    }
+
     func getDashboard() async throws -> [DashboardItemDTO] {
-        // TODO: Implementar llamada a API
-        throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        let items: [MockoonDashboardItemDTO] = try await apiClient.request(
+            path: "dashboard/2",
+            method: .get,
+            body: nil,
+            queryItems: nil
+        )
+        return items.map { mapMockoonDashboardItemToDTO($0) }
     }
-    
+
     func saveDashboard(dashboard: [DashboardItemDTO]) async throws -> [DashboardItemDTO] {
-        // TODO: Implementar
-        throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        // Mockoon does not support save; return as-is for local sync scenarios
+        return dashboard
     }
-    
+
     func getAndSaveConfig() async throws -> ContentConfigDTO {
-        // TODO: Implementar
+        // TODO: Implement when Config Mockoon endpoint is used
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getSliderCategory() async throws -> [SliderCategoryDTO] {
-        // TODO: Implementar llamada a API
-        throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        let items: [MockoonSliderCategoryItemDTO] = try await apiClient.request(
+            path: "dashboard/categoryOutstanding",
+            method: .get,
+            body: nil,
+            queryItems: nil
+        )
+        return items.map { item in
+            SliderCategoryDTO(
+                iconTitle: item.name,
+                iconUrl: item.imageUrl,
+                deepLink: nil,
+                titleColor: nil
+            )
+        }
     }
-    
+
     func getLandingList(keyword: String) async throws -> LandingListDTO {
-        // TODO: Implementar
+        // TODO: Implement when landing/search Mockoon endpoints are wired
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getShoppingCart() -> [ShoppingCartItemDTO] {
-        // TODO: Implementar
         return []
     }
-    
+
     func addProductShoppingCart(product: ProductDashboardDTO, quantity: Int, presentationIdSelected: Int) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func addProductShoppingCart(product: ProductListDTO, lam: ProductListDTO?, quantity: Int, presentationIdSelected: Int) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func checkProductShoppingCart(productId: String) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func deleteProductShoppingCart(productId: String) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func deleteShoppingCart() -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func updateProductQuantity(productId: String, productQuantity: Int) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func updateProductShoppingCart(product: ProductListDTO, lam: ProductListDTO?, quantity: Int, presentationIdSelected: Int) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func getSliderBanners() async throws -> SliderBannerDTO {
-        // TODO: Implementar llamada a API
-        throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        let response: MockoonSlidersResponseDTO = try await apiClient.request(
+            path: "dashboard/v2/sliders",
+            method: .get,
+            body: nil,
+            queryItems: nil
+        )
+        let sliders = response.sliders ?? []
+        let data = sliders.map { s in
+            BannerListDTO(
+                id: s.id,
+                title: nil,
+                image: s.imageUrl,
+                action: s.actionUrl
+            )
+        }
+        return SliderBannerDTO(title: nil, data: data)
     }
-    
+
     func saveFavoriteProduct(request: FavoriteRequest) async throws -> FavoriteRequest {
-        // TODO: Implementar
+        // TODO: Implement POST addtofav when needed
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func deleteFavoriteProduct(request: FavoriteRequest) async throws -> FavoriteRequest {
-        // TODO: Implementar
+        // TODO: Implement DELETE delfromfav when needed
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getProductDetail(idProduct: String) async throws -> ProductListDTO {
-        // TODO: Implementar llamada a API
+        // TODO: Implement GET product/:id when ProductDetail feature is built
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func checkProductFractionalMode(productId: String) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func getShoppingCartSize() -> Int {
-        // TODO: Implementar
         return 0
     }
-    
+
     func updateFractionalMode(productId: String, presentationIdSelected: Int) -> Bool {
-        // TODO: Implementar
         return false
     }
-    
+
     func getRelatedProduct(idProduct: String) async throws -> RelatedProductDTO {
-        // TODO: Implementar llamada a API
+        // TODO: Implement GET product/:id/related when needed
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getFavorite() async throws -> FavoriteDTO {
-        // TODO: Implementar llamada a API
+        // TODO: Implement GET favorites when Favorites feature is built
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getProductQuantity(productId: String) -> Int {
-        // TODO: Implementar
         return 0
     }
-    
+
     func getProductsById(productIds: [String]) async throws -> [ProductListDTO] {
-        // TODO: Implementar llamada a API
+        // TODO: Implement GET products/:ids when needed
         throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
     }
-    
+
     func getCoinpurseDashboard() async throws -> [DashboardItemDTO] {
-        // TODO: Implementar
-        throw NSError(domain: "ProductCloudDataStore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        return try await getDashboard()
+    }
+
+    // MARK: - Mockoon → DTO mapping
+
+    private func mapMockoonDashboardItemToDTO(_ item: MockoonDashboardItemDTO) -> DashboardItemDTO {
+        let type = item.type ?? ""
+        var banner: DashboardItemDTO.DashboardBannerDTO?
+        var list: DashboardItemDTO.DashboardListDTO?
+
+        if type == "BANNER" {
+            banner = DashboardItemDTO.DashboardBannerDTO(
+                title: item.title,
+                image: item.imageUrl,
+                action: item.actionUrl,
+                template: nil,
+                _description: nil,
+                limitOfferTime: nil
+            )
+        }
+        if type == "PRODUCTS", let products = item.products, !products.isEmpty {
+            let productForSaleList = products.map { p in
+                ProductDashboardDTO(
+                    id: p.id,
+                    lam: nil,
+                    name: p.name,
+                    favorite: nil,
+                    productStatusId: nil,
+                    pathImage: p.imageList?.first?.url,
+                    stockAlert: nil,
+                    fractionalMode: nil,
+                    fractionalStock: nil,
+                    packStock: nil,
+                    fractionalPrice: nil,
+                    packPrice: nil,
+                    packPresentation: nil,
+                    fractionalPresentation: nil,
+                    fractionalDescription: nil,
+                    unitQuantity: nil,
+                    packDescription: nil,
+                    maxfractionalUnitSale: nil,
+                    maxPackUnitSale: nil,
+                    limitOfferTime: nil,
+                    defaultPresentation: nil,
+                    shortDescription: nil,
+                    longDescription: nil,
+                    fractionatedPresentationId: nil,
+                    presentationId: nil,
+                    alertTagText: nil,
+                    tagImageUrl: nil,
+                    prescription: nil,
+                    priceAllPaymentMethod: p.price,
+                    fractionatedPriceAllPaymentMethod: nil,
+                    priceWithpaymentMethod: nil,
+                    fractionatedPriceWithpaymentMethod: nil,
+                    crossOutPL: nil,
+                    crossOutFractionatedPL: nil,
+                    paymentMethodCardType: nil
+                )
+            }
+            list = DashboardItemDTO.DashboardListDTO(
+                title: item.title,
+                deepLink: nil,
+                name: nil,
+                productForSaleList: productForSaleList,
+                products: nil,
+                itemsPerView: nil
+            )
+        }
+
+        return DashboardItemDTO(
+            type: type,
+            backgroundColor: nil,
+            titleColor: nil,
+            banner: banner,
+            list: list,
+            bannerList: nil,
+            sliderList: nil,
+            bannerKit: nil,
+            wordList: nil
+        )
     }
 }

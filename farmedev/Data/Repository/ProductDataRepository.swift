@@ -18,8 +18,8 @@ final class ProductDataRepository: ProductRepository {
     }
     
     func getDashboard() async throws -> [DashboardItem] {
-        let contentfulDataStore = productDataStoreFactory.createContentful()
-        let dashboardDTOs = try await contentfulDataStore.getDashboard()
+        let cloudDataStore = productDataStoreFactory.createCloud()
+        let dashboardDTOs = try await cloudDataStore.getDashboard()
         return dashboardDTOs.compactMap { $0.toDomain() }
     }
     
@@ -39,8 +39,8 @@ final class ProductDataRepository: ProductRepository {
     }
     
     func getSliderCategory() async throws -> [SliderCategory] {
-        let contentfulDataStore = productDataStoreFactory.createContentful()
-        let sliderCategoryDTOs = try await contentfulDataStore.getSliderCategory()
+        let cloudDataStore = productDataStoreFactory.createCloud()
+        let sliderCategoryDTOs = try await cloudDataStore.getSliderCategory()
         return sliderCategoryDTOs.map { $0.toDomain() }
     }
     
