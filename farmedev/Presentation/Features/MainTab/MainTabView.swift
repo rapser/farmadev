@@ -37,13 +37,13 @@ struct MainTabView: View {
     }
 
     private var customTabBar: some View {
-        HStack(spacing: 0) {
+        HStack(alignment: .bottom, spacing: 0) {
             tabItem(tab: .inicio, icon: "house.fill", label: "Inicio")
             tabItem(tab: .compras, icon: "plus", label: "Compras", isFAB: true)
             tabItem(tab: .cuenta, icon: "person.fill", label: "Cuenta")
         }
         .padding(.top, 0)
-        .padding(.bottom, 6)
+        .padding(.bottom, 2)
         .background(
             Color(.systemBackground)
                 .ignoresSafeArea(edges: .bottom)
@@ -61,20 +61,21 @@ struct MainTabView: View {
             Button {
                 selectedTab = .compras
             } label: {
-                VStack(spacing: 2) {
+                ZStack(alignment: .bottom) {
                     ZStack {
                         Circle()
                             .fill(Color.loginHeaderOrange)
-                            .frame(width: 42, height: 42)
+                            .frame(width: 36, height: 36)
                         Image(systemName: "plus")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundStyle(.white)
                     }
+                    .offset(y: -19)
                     Text("Compras")
                         .font(.system(size: 10))
                         .foregroundStyle(selectedTab == .compras ? Color.loginHeaderOrange : Color(.systemGray))
                 }
-                .offset(y: -10)
+                .frame(height: 35)
                 .frame(maxWidth: .infinity)
             }
             .buttonStyle(.plain)
@@ -82,14 +83,13 @@ struct MainTabView: View {
             Button {
                 selectedTab = tab
             } label: {
-                VStack(spacing: 3) {
+                VStack(spacing: 2) {
                     Rectangle()
                         .fill(selectedTab == tab ? Color.loginHeaderOrange : Color.clear)
-                        .frame(width: 32, height: 3)
+                        .frame(width: 28, height: 3)
                         .cornerRadius(1.5)
                     Image(systemName: icon)
-                        .font(.system(size: 20))
-                        .padding(.top, 3)
+                        .font(.system(size: 18))
                     Text(label)
                         .font(.system(size: 10))
                 }
