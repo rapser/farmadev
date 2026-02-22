@@ -20,6 +20,11 @@ struct InicioView: View {
             }
         }
         .background(Color(.systemGroupedBackground))
+        .overlay(alignment: .top) {
+            Color.loginHeaderOrange
+                .ignoresSafeArea(edges: .top)
+                .frame(height: 0)
+        }
         .navigationBarHidden(true)
         .task { await viewModel.load() }
         .refreshable { await viewModel.load() }
@@ -31,6 +36,11 @@ struct InicioView: View {
         ZStack(alignment: .bottom) {
             Color.loginHeaderOrange
                 .ignoresSafeArea(edges: .top)
+
+            OrangeHeaderCurve(height: 55)
+                .fill(Color.loginHeaderOrange)
+                .frame(height: 55)
+                .offset(y: 1)
 
             VStack(spacing: 16) {
                 HStack {
@@ -95,11 +105,6 @@ struct InicioView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
             }
-
-            HomeHeaderCurve()
-                .fill(Color(.systemGroupedBackground))
-                .frame(height: 24)
-                .offset(y: 1)
         }
     }
 
@@ -115,7 +120,7 @@ struct InicioView: View {
             promoBannerWithCountdown
         }
         .padding(.horizontal, 16)
-        .padding(.top, 20)
+        .padding(.top, 52)
         .padding(.bottom, 100)
     }
 
@@ -309,19 +314,6 @@ struct InicioView: View {
     }
 }
 
-struct HomeHeaderCurve: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let w = rect.width
-        let h = rect.height
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: 0, y: h))
-        path.addQuadCurve(to: CGPoint(x: w, y: h), control: CGPoint(x: w / 2, y: h + 16))
-        path.addLine(to: CGPoint(x: w, y: 0))
-        path.closeSubpath()
-        return path
-    }
-}
 
 @Observable
 final class InicioViewModel {

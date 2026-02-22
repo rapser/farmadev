@@ -20,6 +20,11 @@ struct ComprasView: View {
             }
         }
         .background(Color(.systemGroupedBackground))
+        .overlay(alignment: .top) {
+            Color.loginHeaderOrange
+                .ignoresSafeArea(edges: .top)
+                .frame(height: 0)
+        }
         .navigationBarHidden(true)
     }
 
@@ -80,9 +85,9 @@ struct ComprasView: View {
                 .padding(.bottom, 18)
             }
 
-            HomeHeaderCurve()
-                .fill(Color(.systemGroupedBackground))
-                .frame(height: 24)
+            OrangeHeaderCurve(height: 55)
+                .fill(Color.loginHeaderOrange)
+                .frame(height: 55)
                 .offset(y: 1)
         }
     }
@@ -97,7 +102,7 @@ struct ComprasView: View {
             countdownBanner
         }
         .padding(.horizontal, 16)
-        .padding(.top, 20)
+        .padding(.top, 52)
         .padding(.bottom, 100)
     }
 
