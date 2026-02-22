@@ -20,96 +20,100 @@ struct InicioView: View {
             }
         }
         .background(Color(.systemGroupedBackground))
-        .overlay(alignment: .top) {
-            Color.loginHeaderOrange
-                .ignoresSafeArea(edges: .top)
-                .frame(height: 0)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            stickyAddressBar
         }
         .navigationBarHidden(true)
         .task { await viewModel.load() }
         .refreshable { await viewModel.load() }
     }
 
-    // MARK: - Orange header (location, delivery, cart, greeting, search)
+    // MARK: - Sticky navigation bar (address + cart, always visible)
+
+    private var stickyAddressBar: some View {
+        HStack(spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "mappin.circle.fill")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.white.opacity(0.9))
+                Text(appState.defaultAddress)
+                    .font(.system(size: 12))
+                    .foregroundStyle(.white)
+                    .lineLimit(1)
+                Spacer()
+                Button {} label: {
+                    Text("Delivery")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(Color.loginHeaderOrange)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 4)
+                        .background(Capsule().fill(.white))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.18)))
+
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: "cart.fill")
+                    .font(.system(size: 22))
+                    .foregroundStyle(.white)
+                if appState.cartCount > 0 {
+                    Text("\(appState.cartCount)")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(.white)
+                        .frame(width: 16, height: 16)
+                        .background(Circle().fill(.red))
+                        .offset(x: 10, y: -8)
+                } else {
+                    Text("0")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(.white)
+                        .frame(width: 16, height: 16)
+                        .background(Circle().fill(.red.opacity(0.8)))
+                        .offset(x: 10, y: -8)
+                }
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 10)
+        .background(
+            Color.loginHeaderOrange
+                .ignoresSafeArea(edges: .top)
+        )
+    }
+
+    // MARK: - Orange scrollable header (greeting, search, curve)
 
     private var headerSection: some View {
         ZStack(alignment: .bottom) {
             Color.loginHeaderOrange
-                .ignoresSafeArea(edges: .top)
 
             InicioHeaderCurve()
                 .fill(Color.loginHeaderOrange)
                 .frame(height: 65)
                 .offset(y: 1)
 
-            VStack(spacing: 8) {
-                HStack(spacing: 12) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "mappin.circle.fill")
-                            .font(.system(size: 15))
-                            .foregroundStyle(.white.opacity(0.9))
-                        Text(appState.defaultAddress)
-                            .font(.system(size: 12))
-                            .foregroundStyle(.white)
-                            .lineLimit(1)
-                        Spacer()
-                        Button {} label: {
-                            Text("Delivery")
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundStyle(Color.loginHeaderOrange)
-                                .padding(.horizontal, 9)
-                                .padding(.vertical, 4)
-                                .background(Capsule().fill(.white))
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 7)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.18)))
-
-                    ZStack(alignment: .topTrailing) {
-                        Image(systemName: "cart.fill")
-                            .font(.system(size: 22))
-                            .foregroundStyle(.white)
-                        if appState.cartCount > 0 {
-                            Text("\(appState.cartCount)")
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundStyle(.white)
-                                .frame(width: 16, height: 16)
-                                .background(Circle().fill(.red))
-                                .offset(x: 10, y: -8)
-                        } else {
-                            Text("0")
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundStyle(.white)
-                                .frame(width: 16, height: 16)
-                                .background(Circle().fill(.red.opacity(0.8)))
-                                .offset(x: 10, y: -8)
-                        }
-                    }
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Hola \(appState.userDisplayName)")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundStyle(.white)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(Color(.systemGray))
+                    TextField("¿Qué buscaremos hoy?", text: $searchText)
+                        .foregroundStyle(.primary)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Hola \(appState.userDisplayName)")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(.white)
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundStyle(Color(.systemGray))
-                        TextField("¿Qué buscaremos hoy?", text: $searchText)
-                            .foregroundStyle(.primary)
-                    }
-                    .font(.system(size: 16))
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(.white))
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .font(.system(size: 16))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(RoundedRectangle(cornerRadius: 14).fill(.white))
             }
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
+            .padding(.bottom, 20)
         }
     }
 
