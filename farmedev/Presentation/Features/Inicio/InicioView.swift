@@ -37,32 +37,36 @@ struct InicioView: View {
             Color.loginHeaderOrange
                 .ignoresSafeArea(edges: .top)
 
-            OrangeHeaderCurve(height: 55)
+            InicioHeaderCurve()
                 .fill(Color.loginHeaderOrange)
-                .frame(height: 55)
+                .frame(height: 65)
                 .offset(y: 1)
 
-            VStack(spacing: 16) {
-                HStack {
-                    HStack(spacing: 6) {
+            VStack(spacing: 8) {
+                HStack(spacing: 12) {
+                    HStack(spacing: 8) {
                         Image(systemName: "mappin.circle.fill")
-                            .font(.system(size: 18))
+                            .font(.system(size: 15))
                             .foregroundStyle(.white.opacity(0.9))
                         Text(appState.defaultAddress)
-                            .font(.system(size: 13))
+                            .font(.system(size: 12))
                             .foregroundStyle(.white)
                             .lineLimit(1)
+                        Spacer()
+                        Button {} label: {
+                            Text("Delivery")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundStyle(Color.loginHeaderOrange)
+                                .padding(.horizontal, 9)
+                                .padding(.vertical, 4)
+                                .background(Capsule().fill(.white))
+                        }
+                        .buttonStyle(.plain)
                     }
-                    Spacer()
-                    Button {} label: {
-                        Text("Delivery")
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(Color.loginHeaderOrange)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Capsule().fill(.white))
-                    }
-                    .buttonStyle(.plain)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 7)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.18)))
+
                     ZStack(alignment: .topTrailing) {
                         Image(systemName: "cart.fill")
                             .font(.system(size: 22))
@@ -83,10 +87,10 @@ struct InicioView: View {
                                 .offset(x: 10, y: -8)
                         }
                     }
-                    .padding(.leading, 8)
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 8)
+                .padding(.top, 10)
+                .padding(.bottom, 10)
 
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Hola \(appState.userDisplayName)")
@@ -99,7 +103,8 @@ struct InicioView: View {
                             .foregroundStyle(.primary)
                     }
                     .font(.system(size: 16))
-                    .padding(14)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
                     .background(RoundedRectangle(cornerRadius: 14).fill(.white))
                 }
                 .padding(.horizontal, 20)
@@ -120,7 +125,7 @@ struct InicioView: View {
             promoBannerWithCountdown
         }
         .padding(.horizontal, 16)
-        .padding(.top, 52)
+        .padding(.top, 14)
         .padding(.bottom, 100)
     }
 
@@ -314,6 +319,20 @@ struct InicioView: View {
     }
 }
 
+
+struct InicioHeaderCurve: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let w = rect.width
+        let h = rect.height
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: 0, y: h))
+        path.addQuadCurve(to: CGPoint(x: w, y: h), control: CGPoint(x: w / 2, y: h + 140))
+        path.addLine(to: CGPoint(x: w, y: 0))
+        path.closeSubpath()
+        return path
+    }
+}
 
 @Observable
 final class InicioViewModel {

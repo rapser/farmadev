@@ -39,20 +39,20 @@ struct MainTabView: View {
     private var customTabBar: some View {
         HStack(spacing: 0) {
             tabItem(tab: .inicio, icon: "house.fill", label: "Inicio")
-            Spacer()
             tabItem(tab: .compras, icon: "plus", label: "Compras", isFAB: true)
-            Spacer()
             tabItem(tab: .cuenta, icon: "person.fill", label: "Cuenta")
         }
-        .padding(.horizontal, 24)
-        .padding(.top, 8)
-        .padding(.bottom, 8)
+        .padding(.top, 0)
+        .padding(.bottom, 6)
         .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.06), radius: 12, y: -4)
+            Color(.systemBackground)
+                .ignoresSafeArea(edges: .bottom)
         )
-        .padding(.horizontal, 8)
+        .overlay(alignment: .top) {
+            Rectangle()
+                .fill(Color(.separator))
+                .frame(height: 0.5)
+        }
     }
 
     @ViewBuilder
@@ -61,30 +61,37 @@ struct MainTabView: View {
             Button {
                 selectedTab = .compras
             } label: {
-                ZStack {
-                    Circle()
-                        .fill(Color.loginHeaderOrange)
-                        .frame(width: 56, height: 56)
-                    Image(systemName: "plus")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(Color.mifarmaGreen)
+                VStack(spacing: 2) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.loginHeaderOrange)
+                            .frame(width: 42, height: 42)
+                        Image(systemName: "plus")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                    Text("Compras")
+                        .font(.system(size: 10))
+                        .foregroundStyle(selectedTab == .compras ? Color.loginHeaderOrange : Color(.systemGray))
                 }
-                .offset(y: -18)
+                .offset(y: -10)
+                .frame(maxWidth: .infinity)
             }
             .buttonStyle(.plain)
         } else {
             Button {
                 selectedTab = tab
             } label: {
-                VStack(spacing: 4) {
-                    Image(systemName: icon)
-                        .font(.system(size: 22))
-                    Text(label)
-                        .font(.system(size: 11))
+                VStack(spacing: 3) {
                     Rectangle()
                         .fill(selectedTab == tab ? Color.loginHeaderOrange : Color.clear)
                         .frame(width: 32, height: 3)
                         .cornerRadius(1.5)
+                    Image(systemName: icon)
+                        .font(.system(size: 20))
+                        .padding(.top, 3)
+                    Text(label)
+                        .font(.system(size: 10))
                 }
                 .foregroundStyle(selectedTab == tab ? Color.loginHeaderOrange : Color(.systemGray))
                 .frame(maxWidth: .infinity)
