@@ -42,7 +42,7 @@ struct LoginView: View {
                 .offset(y: 1)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 80)
+        .frame(height: 40)
     }
 
     private var mifarmaLogo: some View {
@@ -136,7 +136,7 @@ struct OrangeHeaderCurve: Shape {
         path.addLine(to: CGPoint(x: 0, y: h))
         path.addQuadCurve(
             to: CGPoint(x: w, y: h),
-            control: CGPoint(x: w / 2, y: h + 42)
+            control: CGPoint(x: w / 2, y: h + 65)
         )
         path.addLine(to: CGPoint(x: w, y: 0))
         path.closeSubpath()

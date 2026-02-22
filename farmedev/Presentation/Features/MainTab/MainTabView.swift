@@ -45,8 +45,8 @@ struct MainTabView: View {
             tabItem(tab: .cuenta, icon: "person.fill", label: "Cuenta")
         }
         .padding(.horizontal, 24)
-        .padding(.top, 12)
-        .padding(.bottom, 28)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(.systemBackground))

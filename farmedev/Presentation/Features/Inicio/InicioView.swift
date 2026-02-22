@@ -130,21 +130,24 @@ struct InicioView: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: 12))
+                    .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(Color.loginHeaderOrange)
                 Text(amount)
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Color(red: 0.4, green: 0.2, blue: 0.6))
                 Text(subtitle)
-                    .font(.system(size: 11))
+                    .font(.system(size: 9, weight: .medium))
                     .foregroundStyle(.secondary)
             }
-            Spacer()
+            Spacer(minLength: 0)
             Image(systemName: icon)
-                .font(.system(size: 36))
+                .font(.system(size: 32))
                 .foregroundStyle(Color.loginHeaderOrange.opacity(0.5))
         }
-        .padding(16)
+        .padding(.top, 16)
+        .padding(.leading, 16)
+        .padding(.bottom, 16)
+        .padding(.trailing, 0)
         .background(RoundedRectangle(cornerRadius: 16).fill(.white))
         .shadow(color: .black.opacity(0.04), radius: 8, y: 2)
     }
