@@ -254,7 +254,7 @@ struct InicioView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(Color(red: 0.4, green: 0.2, blue: 0.6))
             }
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+            HStack(alignment: .top, spacing: 8) {
                 catalogItem(title: "Beauty & Care", icon: "paintbrush.fill")
                 catalogItem(title: "Cuidado Personal", icon: "drop.fill")
                 catalogItem(title: "Wellness", icon: "heart.fill")
@@ -265,22 +265,24 @@ struct InicioView: View {
     }
 
     private func catalogItem(title: String, icon: String) -> some View {
-        VStack(spacing: 8) {
-            RoundedRectangle(cornerRadius: 12)
+        VStack(spacing: 6) {
+            RoundedRectangle(cornerRadius: 10)
                 .fill(.white)
-                .frame(height: 80)
+                .aspectRatio(1, contentMode: .fit)
                 .overlay(
                     Image(systemName: icon)
-                        .font(.system(size: 32))
+                        .font(.system(size: 22))
                         .foregroundStyle(Color.loginHeaderOrange.opacity(0.7))
                 )
                 .shadow(color: .black.opacity(0.04), radius: 4)
             Text(title)
-                .font(.system(size: 11))
+                .font(.system(size: 10))
                 .foregroundStyle(.primary)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
         }
+        .frame(maxWidth: .infinity)
     }
 
     private var legalDisclaimer: some View {
