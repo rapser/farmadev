@@ -2,23 +2,24 @@
 //  ContentView.swift
 //  farmedev
 //
-//  Created by miguel tomairo on 24/01/26.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(AppState.self) private var appState
+    @State private var authCoordinator = AuthCoordinator()
+    @State private var selectedTab: MainTab = .inicio
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if appState.isLoggedIn {
+            MainTabView(selectedTab: $selectedTab)
+        } else {
+            AuthCoordinatorView(coordinator: authCoordinator)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(AppState())
 }
