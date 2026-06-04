@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
-    @Environment(\.dismiss) private var dismiss
+    @Environment(AuthCoordinator.self) private var coordinator
 
     @State private var email: String = ""
 
@@ -61,7 +61,7 @@ struct ResetPasswordView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: { dismiss() }) {
+                Button(action: { coordinator.pop() }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.primary)
@@ -72,7 +72,7 @@ struct ResetPasswordView: View {
 
     private func submit() {
         // TODO: llamar API de restablecimiento
-        dismiss()
+        coordinator.pop()
     }
 }
 

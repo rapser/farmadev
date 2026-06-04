@@ -16,13 +16,14 @@ enum MainTab: Int, CaseIterable {
 struct MainTabView: View {
     @Binding var selectedTab: MainTab
     @Environment(AppState.self) private var appState
+    @State private var inicioCoordinator = InicioCoordinator()
 
     var body: some View {
         ZStack(alignment: .bottom) {
             Group {
                 switch selectedTab {
                 case .inicio:
-                    NavigationStack { InicioView() }
+                    InicioCoordinatorView(coordinator: inicioCoordinator)
                 case .compras:
                     NavigationStack { ComprasView() }
                 case .cuenta:

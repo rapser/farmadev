@@ -2,29 +2,21 @@
 //  LoginPasswordView.swift
 //  farmedev
 //
-//  Pantalla de contraseña tras ingresar correo (paso 2 del login).
-//
 
 import SwiftUI
 
 struct LoginPasswordView: View {
     @Environment(AppState.self) private var appState
-    @Environment(\.dismiss) private var dismiss
+    @Environment(AuthCoordinator.self) private var coordinator
 
     let email: String
-
     @State private var password: String = ""
-    @State private var isPasswordVisible: Bool = false
 
-    private var canSubmit: Bool {
-        !password.trimmingCharacters(in: .whitespaces).isEmpty
-    }
+    private var canSubmit: Bool { !password.trimmingCharacters(in: .whitespaces).isEmpty }
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color(.systemBackground)
-                .ignoresSafeArea()
-
+            Color(.systemBackground).ignoresSafeArea()
             VStack(spacing: 0) {
                 Spacer(minLength: 20)
                 VStack(alignment: .leading, spacing: 24) {
@@ -38,46 +30,19 @@ struct LoginPasswordView: View {
                             .disabled(true)
                             .foregroundStyle(.secondary)
 
-                        ZStack(alignment: .trailing) {
-                            Group {
-                                if isPasswordVisible {
-                                    TextField("Contraseña", text: $password)
-                                        .textContentType(.password)
-                                } else {
-                                    SecureField("Contraseña", text: $password)
-                                        .textContentType(.password)
-                                }
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.trailing, 44)
-                            .frame(height: 52)
+                        SecurePasswordField(placeholder: "Contraseña", text: $password)
 
-                            Button(action: { isPasswordVisible.toggle() }) {
-                                Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundStyle(Color(.systemGray2))
-                            }
-                            .padding(.trailing, 16)
-                        }
-                        .background(Color(.systemBackground))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color(.systemGray4), lineWidth: 1)
-                        )
-                        .cornerRadius(12)
-
-                        NavigationLink(destination: ResetPasswordView()) {
+                        Button(action: { coordinator.showResetPassword() }) {
                             Text("¿Olvidaste tu contraseña?")
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundStyle(Color.loginLinkPurple)
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
 
                     Spacer(minLength: 40)
 
                     VStack(spacing: 16) {
-                        Button(action: submit) {
+                        Button(action: { appState.login(email: email) }) {
                             Text("Ingresar a tu cuenta")
                                 .font(.system(size: 17, weight: .bold))
                                 .foregroundStyle(canSubmit ? .white : Color(.systemGray2))
@@ -87,7 +52,7 @@ struct LoginPasswordView: View {
                         .buttonStyle(LoginPrimaryButtonStyle(isEnabled: canSubmit))
                         .disabled(!canSubmit)
 
-                        NavigationLink(destination: RegisterView()) {
+                        Button(action: { coordinator.showRegister() }) {
                             Text("Crear cuenta")
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundStyle(Color.loginLinkPurple)
@@ -102,29 +67,12 @@ struct LoginPasswordView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: { dismiss() }) {
+                Button(action: { coordinator.pop() }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.primary)
                 }
             }
         }
-    }
-
-    private func submit() {
-        // Por ahora solo se puede ingresar con Google desde la pantalla principal
-    }
-}
-
-// Color para título y enlaces de la pantalla de contraseña
-extension Color {
-    static let loginPasswordTitle = Color(red: 0.25, green: 0.22, blue: 0.29)
-    static let loginLinkPurple = Color(red: 0.45, green: 0.35, blue: 0.75)
-}
-
-#Preview {
-    NavigationStack {
-        LoginPasswordView(email: "miguel@gmail.com")
-            .environment(AppState())
     }
 }

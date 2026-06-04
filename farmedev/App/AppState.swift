@@ -2,8 +2,6 @@
 //  AppState.swift
 //  farmedev
 //
-//  Created by miguel tomairo on 24/01/26.
-//
 
 import Foundation
 
@@ -16,30 +14,47 @@ final class AppState {
     var defaultAddress: String = "Jirón Pedro Villalobos 1118"
     var cartCount: Int = 0
 
+    init() {
+        restoreSession()
+    }
+
     func login(email: String) {
-        let name = extractName(from: email)
-        userDisplayName = name.isEmpty ? "Miguel" : name
-        userFullName = "Miguel Angel"
-        userSurname = "Tomairo Mendez"
+        applyUser(displayName: extractName(from: email))
         isLoggedIn = true
+        SessionStore.save(email: email)
     }
 
     func loginWithSocial(provider: String) {
-        userDisplayName = "Miguel"
-        userFullName = "Miguel Angel"
-        userSurname = "Tomairo Mendez"
+        applyUser(displayName: "Miguel")
         isLoggedIn = true
+        SessionStore.save(email: "social:\(provider)")
     }
 
     func logout() {
         isLoggedIn = false
+        SessionStore.clear()
+    }
+
+    // MARK: - Private
+
+    private func restoreSession() {
+        guard let stored = SessionStore.load() else { return }
+        let name = stored.hasPrefix("social:") ? "Miguel" : extractName(from: stored)
+        applyUser(displayName: name)
+        isLoggedIn = true
+    }
+
+    private func applyUser(displayName: String) {
+        userDisplayName = displayName.isEmpty ? "Miguel" : displayName
+        userFullName    = "Miguel Angel"
+        userSurname     = "Tomairo Mendez"
     }
 
     private func extractName(from email: String) -> String {
         let trimmed = email.trimmingCharacters(in: .whitespaces)
         guard let atIndex = trimmed.firstIndex(of: "@") else { return "" }
         let prefix = String(trimmed[..<atIndex])
-        let name = prefix.replacingOccurrences(of: ".", with: " ")
+        let name   = prefix.replacingOccurrences(of: ".", with: " ")
         return name.prefix(1).uppercased() + name.dropFirst().lowercased()
     }
 }
