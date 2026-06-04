@@ -1,0 +1,1927 @@
+{
+  "uuid": "d69a8eb4-2042-4aba-b57d-70bba6c7ca04",
+  "lastMigration": 33,
+  "name": "FarmaDev API Complete - Production Grade",
+  "endpointPrefix": "api/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "a50733e6-5777-47c9-88a8-96d169befd10",
+      "documentation": "OAuth Token",
+      "method": "post",
+      "endpoint": "oauth/token",
+      "responses": [
+        {
+          "uuid": "6dc7c44c-9305-4f3c-a0cc-84cafbc9e09a",
+          "body": "{\n  \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.farma_prod_token_secure\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"scope\": \"customer_rs/api\"\n}",
+          "statusCode": 200,
+          "label": "Success",
+          "latency": 0,
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8cc7f193-c8fa-475a-8b1f-a920f120840a",
+      "documentation": "App Version",
+      "method": "get",
+      "endpoint": "version",
+      "responses": [
+        {
+          "uuid": "07c7c4fb-0feb-4473-917b-6fc539cef2f0",
+          "body": "{\n  \"version\": \"5.2.0\",\n  \"message\": \"¡Nueva experiencia mejorada! Actualiza para disfrutar de mejores descuentos.\",\n  \"forceUpdate\": false\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "ad764d1a-03d7-484f-95e4-8370acc73e79",
+      "documentation": "Send OTP Code",
+      "method": "post",
+      "endpoint": "onetimepassword",
+      "responses": [
+        {
+          "uuid": "29f7f92f-df14-4401-b5d0-7755e26f4bcb",
+          "body": "{\n  \"status\": \"SENT\",\n  \"retryAfter\": 60,\n  \"value\": \"123456\"\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "1ef9fc5b-ae66-410e-8b2f-8c394ea8a120",
+      "documentation": "Get Districts",
+      "method": "get",
+      "endpoint": "districts",
+      "responses": [
+        {
+          "uuid": "e0858068-cdbb-4515-a03b-9fceb170c24d",
+          "body": "{\n  \"districts\": [\n    {\"id\": 1, \"name\": \"Miraflores\", \"departmentId\": 1, \"provinceId\": 1, \"hasExpress\": true},\n    {\"id\": 2, \"name\": \"San Isidro\", \"departmentId\": 1, \"provinceId\": 1, \"hasExpress\": true},\n    {\"id\": 3, \"name\": \"Surco\", \"departmentId\": 1, \"provinceId\": 1, \"hasExpress\": true},\n    {\"id\": 4, \"name\": \"La Molina\", \"departmentId\": 1, \"provinceId\": 1, \"hasExpress\": true},\n    {\"id\": 5, \"name\": \"San Borja\", \"departmentId\": 1, \"provinceId\": 1, \"hasExpress\": true}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7ddcf6e1-cca9-462c-ac17-53ad9441d75b",
+      "documentation": "Get Via Types",
+      "method": "get",
+      "endpoint": "via",
+      "responses": [
+        {
+          "uuid": "723b669c-5dcf-4a66-bbe2-4d99c164b56f",
+          "body": "{\n  \"vias\": [\n    {\"id\": 1, \"name\": \"Calle\", \"abbr\": \"Ca.\"},\n    {\"id\": 2, \"name\": \"Avenida\", \"abbr\": \"Av.\"},\n    {\"id\": 3, \"name\": \"Jirón\", \"abbr\": \"Jr.\"},\n    {\"id\": 4, \"name\": \"Pasaje\", \"abbr\": \"Psj.\"},\n    {\"id\": 5, \"name\": \"Alameda\", \"abbr\": \"Alm.\"}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "bb17b30b-008a-47a0-8a8a-471c17c18848",
+      "documentation": "Visanet Security Token",
+      "method": "post",
+      "endpoint": "security",
+      "responses": [
+        {
+          "uuid": "75308ef5-b2f5-47c6-a722-17a43a8ee892",
+          "body": "\"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.visanet_secure_session_2026\"",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "aea6eee2-9c9d-4f99-b831-fb5b7423d09e",
+      "documentation": "Search Predictive Keyword",
+      "method": "get",
+      "endpoint": "search/keyword",
+      "responses": [
+        {
+          "uuid": "5e2462c7-4ae7-4851-be5f-9c9b0f775038",
+          "body": "{\n  \"keywords\": [\"paracetamol\", \"panadol\", \"paracetamol infantil\", \"paracetamol gotas\"],\n  \"products\": [\n    {\"id\": \"PRD001\", \"name\": \"Panadol 500mg x 20 tabletas\", \"price\": 12.50, \"imageUrl\": \"https://farmadev.cdn/p1.jpg\", \"brand\": \"GSK\"},\n    {\"id\": \"PRD002\", \"name\": \"Paracetamol Genfar Jarabe 120ml\", \"price\": 8.90, \"imageUrl\": \"https://farmadev.cdn/p2.jpg\", \"brand\": \"Genfar\"}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4f8cf3f1-9d0f-4749-aa91-23d87887bc3d",
+      "documentation": "Get Search History",
+      "method": "get",
+      "endpoint": "searchhistory",
+      "responses": [
+        {
+          "uuid": "c93ba8c8-2a1d-4b1b-9460-434e87ddd35b",
+          "body": "{\n  \"history\": [\n    {\"id\": 1, \"keyword\": \"vitamina c efervescente\", \"date\": \"2026-02-15\"},\n    {\"id\": 2, \"keyword\": \"mascarillas kn95\", \"date\": \"2026-02-14\"},\n    {\"id\": 3, \"keyword\": \"alcohol en gel\", \"date\": \"2026-02-13\"}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "61bd809c-7252-4a31-a2ed-18cf327eca3a",
+      "documentation": "Search Products",
+      "method": "post",
+      "endpoint": "productsearch",
+      "responses": [
+        {
+          "uuid": "69735eb3-b81c-4a33-8ff1-f1ac00ccc3a0",
+          "body": "{\n  \"totalElements\": 150,\n  \"totalPages\": 15,\n  \"currentPage\": 1,\n  \"products\": [\n    {\n      \"id\": \"PRD001\",\n      \"name\": \"Panadol Forte 500mg\",\n      \"brand\": \"GSK\",\n      \"shortDescription\": \"Alivio del dolor fuerte y fiebre\",\n      \"imageList\": [{\"url\": \"https://farmadev.cdn/prod1.jpg\"}],\n      \"price\": 15.50,\n      \"fractionatedPrice\": 0.80,\n      \"stock\": 100,\n      \"fractionalMode\": true,\n      \"presentation\": \"Caja x 20 tabletas\",\n      \"productStatus\": \"AVAILABLE\",\n      \"maxUnitSale\": 5,\n      \"priceWithpaymentMethod\": 13.90,\n      \"paymentMethodCardType\": \"OH!\"\n    }\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "c106cc69-8726-403a-81b7-98854c8e34c0",
+      "documentation": "Delete Search History",
+      "method": "delete",
+      "endpoint": "searchhistory/:id",
+      "responses": [
+        {
+          "uuid": "631aa85d-302d-4418-896c-33d8a64ca560",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "174ee5ec-10a1-4507-8021-e26a92ead646",
+      "documentation": "Get Categories",
+      "method": "get",
+      "endpoint": "getcategories",
+      "responses": [
+        {
+          "uuid": "6e685b4f-7cb1-4dc9-811d-87fa3424484f",
+          "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Medicamentos\",\n    \"imageUrl\": \"https://farmadev.cdn/cat_med.jpg\",\n    \"subcategories\": [\n      {\"id\": 11, \"name\": \"Analgésicos\"},\n      {\"id\": 12, \"name\": \"Antibióticos\"},\n      {\"id\": 13, \"name\": \"Antiinflamatorios\"}\n    ]\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Cuidado Personal\",\n    \"imageUrl\": \"https://farmadev.cdn/cat_pers.jpg\",\n    \"subcategories\": [\n      {\"id\": 21, \"name\": \"Higiene Bucal\"},\n      {\"id\": 22, \"name\": \"Cuidado de la Piel\"}\n    ]\n  }\n]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "fe5af3a7-587f-42f3-b253-8356045b4fcc",
+      "documentation": "Get Products by Category",
+      "method": "get",
+      "endpoint": "category/:catId/products",
+      "responses": [
+        {
+          "uuid": "61a8e779-a548-4bc6-8f51-78366fe48f45",
+          "body": "{\n  \"totalElements\": 50,\n  \"totalPages\": 5,\n  \"currentPage\": 1,\n  \"products\": [\n    {\n      \"id\": \"PRD010\",\n      \"name\": \"Ibuprofeno 400mg\",\n      \"price\": 5.50,\n      \"imageList\": [{\"url\": \"https://farmadev.cdn/ibu.jpg\"}],\n      \"productStatus\": \"AVAILABLE\"\n    }\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3c775939-ecd2-4673-9cbf-55c6580fba1e",
+      "documentation": "Get Favorites",
+      "method": "get",
+      "endpoint": "favorites",
+      "responses": [
+        {
+          "uuid": "103b230f-c66d-4d81-bc4d-de55b4379084",
+          "body": "{\n  \"products\": [\n    {\n      \"id\": \"PRD001\",\n      \"name\": \"Panadol Forte\",\n      \"brand\": \"GSK\",\n      \"price\": 15.50,\n      \"imageList\": [{\"url\": \"https://farmadev.cdn/p1.jpg\"}],\n      \"favorite\": true\n    }\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "75f51a52-2d12-4a78-9453-c978056a07ab",
+      "documentation": "Get Dashboard",
+      "method": "get",
+      "endpoint": "dashboard/2",
+      "responses": [
+        {
+          "uuid": "02bc2267-da11-4a16-b22f-d17c9020529c",
+          "body": "[\n  {\n    \"id\": 1,\n    \"type\": \"BANNER\",\n    \"title\": \"Cyber Farma\",\n    \"imageUrl\": \"https://farmadev.cdn/banner_cyber.jpg\",\n    \"actionUrl\": \"app://cyber\"\n  },\n  {\n    \"id\": 2,\n    \"type\": \"PRODUCTS\",\n    \"title\": \"Lo más pedido hoy\",\n    \"products\": [\n      {\"id\": \"PRD001\", \"name\": \"Panadol\", \"price\": 12.50, \"imageList\": [{\"url\": \"https://farmadev.cdn/p1.jpg\"}]}\n    ]\n  }\n]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "6d0fd7a2-39de-44ba-9bde-9237a400ab57",
+      "documentation": "Get Slider Banners",
+      "method": "get",
+      "endpoint": "dashboard/v2/sliders",
+      "responses": [
+        {
+          "uuid": "334a0b64-b616-42c0-a178-11a633dfc73b",
+          "body": "{\n  \"sliders\": [\n    {\"id\": 1, \"imageUrl\": \"https://farmadev.cdn/slide1.jpg\", \"actionUrl\": \"app://promo1\", \"order\": 1},\n    {\"id\": 2, \"imageUrl\": \"https://farmadev.cdn/slide2.jpg\", \"actionUrl\": \"app://promo2\", \"order\": 2}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "df1eabba-9e6e-4cd6-be02-df857ee912a4",
+      "documentation": "Get Slider Categories",
+      "method": "get",
+      "endpoint": "dashboard/categoryOutstanding",
+      "responses": [
+        {
+          "uuid": "15d146a1-9978-4971-95af-2c95f17acf42",
+          "body": "[\n  {\"id\": 1, \"name\": \"Cuidado Infantil\", \"imageUrl\": \"https://farmadev.cdn/bebe.png\"},\n  {\"id\": 2, \"name\": \"Vitaminas\", \"imageUrl\": \"https://farmadev.cdn/vit.png\"},\n  {\"id\": 3, \"name\": \"Dermocosmética\", \"imageUrl\": \"https://farmadev.cdn/derma.png\"}\n]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "2fb75655-eb88-421d-8f75-e556d4b46e42",
+      "documentation": "Add to Favorites",
+      "method": "post",
+      "endpoint": "addtofav",
+      "responses": [
+        {
+          "uuid": "86fa5358-11cd-4b13-8bdf-bfe01eab65af",
+          "body": "{\"productId\": \"PRD001\", \"added\": true}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8d86e582-ca7d-4cea-b451-1d4c83befb03",
+      "documentation": "Delete from Favorites",
+      "method": "post",
+      "endpoint": "delfromfav",
+      "responses": [
+        {
+          "uuid": "9ebe609f-dd9b-4bdb-a1c8-ea6d6c67e931",
+          "body": "{\"productId\": \"PRD001\", \"removed\": true}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "5fef6bf2-c2b3-41a1-a572-0b699386e14c",
+      "documentation": "Get Product Detail",
+      "method": "get",
+      "endpoint": "product/:id",
+      "responses": [
+        {
+          "uuid": "9c936c4d-d75c-4177-81c3-4f6d3bc6cb16",
+          "body": "{\n  \"id\": \"PRD001\",\n  \"name\": \"Panadol Forte 500mg\",\n  \"brand\": \"GSK\",\n  \"longDescription\": \"Eficaz analgésico y antipirético para el alivio de dolores fuertes de cabeza, musculares y fiebre.\",\n  \"clinicalInfo\": {\n    \"activePrinciples\": [\"Paracetamol\"],\n    \"prescription\": \"Venta Libre (OTC)\",\n    \"dosage\": \"1 tableta cada 8 horas.\",\n    \"warnings\": \"No administrar con otros productos que contengan paracetamol.\"\n  },\n  \"price\": 15.50,\n  \"discountPrice\": 12.90,\n  \"pointsEarned\": 10,\n  \"imageList\": [{\"url\": \"https://farmadev.cdn/p1_front.jpg\"}, {\"url\": \"https://farmadev.cdn/p1_back.jpg\"}],\n  \"stock\": 50,\n  \"productStatus\": \"AVAILABLE\"\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "5caf15a1-0330-4cdf-adac-871661045192",
+      "documentation": "Get Related Products",
+      "method": "get",
+      "endpoint": "product/:id/related",
+      "responses": [
+        {
+          "uuid": "c53d433b-cac7-46a3-a178-9d2313fc0e04",
+          "body": "{\n  \"products\": [\n    {\"id\": \"PRD002\", \"name\": \"Ibuprofeno 400mg\", \"price\": 8.00, \"imageList\": [{\"url\": \"https://farmadev.cdn/ibu.jpg\"}]}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "62ffccd4-33ce-4312-bd19-cc055a7598f7",
+      "documentation": "Get Products by IDs",
+      "method": "get",
+      "endpoint": "products/:ids",
+      "responses": [
+        {
+          "uuid": "8db7fbd6-452a-4038-a49b-964ce0d34d9f",
+          "body": "[\n  {\"id\": \"PRD001\", \"name\": \"Panadol 500mg\", \"price\": 12.50, \"stock\": 100}\n]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a9dab34f-70d7-462c-bdb2-6f6ae8a28612",
+      "documentation": "Get Cancel List Order",
+      "method": "get",
+      "endpoint": "message/cancel",
+      "responses": [
+        {
+          "uuid": "2b9df0e7-bddb-44ac-b58e-83e66977624a",
+          "body": "{\n  \"reasons\": [\n    {\"id\": 1, \"description\": \"Ya no necesito el producto\"},\n    {\"id\": 2, \"description\": \"Error en el método de pago\"},\n    {\"id\": 3, \"description\": \"Demora en el tiempo de entrega\"}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4c9a3c8e-8066-40ec-9345-b79f3d33289c",
+      "documentation": "Get Delivery Info",
+      "method": "get",
+      "endpoint": "deliveryinfo",
+      "responses": [
+        {
+          "uuid": "94d6cb07-efaf-4861-aa10-30de972b2ce1",
+          "body": "{\n  \"deliveryTypes\": [\n    {\"id\": \"EXP\", \"name\": \"Envío Express\", \"description\": \"Llega en 45-60 min\", \"price\": 7.90},\n    {\"id\": \"RET\", \"name\": \"Recojo en Tienda\", \"description\": \"Gratis en el local elegido\", \"price\": 0.00}\n  ],\n  \"minimumPurchase\": 20.00\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "84133495-018f-427e-bd79-942a74139759",
+      "documentation": "Update Cart",
+      "method": "post",
+      "endpoint": "cart",
+      "responses": [
+        {
+          "uuid": "b3f751ce-651f-4464-bb84-dc6be285445a",
+          "body": "{\n  \"id\": 99283,\n  \"items\": [\n    {\"productId\": \"PRD001\", \"name\": \"Panadol\", \"quantity\": 2, \"unitPrice\": 12.50}\n  ],\n  \"total\": 25.00,\n  \"itemCount\": 1\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "17342fa6-6b2b-4fe6-b38e-f6a63eedd216",
+      "documentation": "Get Delivery Schedule",
+      "method": "get",
+      "endpoint": "deliveryinfo/schedule",
+      "responses": [
+        {
+          "uuid": "e8a717b5-586b-401d-9ff0-de2ce62c981d",
+          "body": "{\n  \"schedules\": [\n    {\"id\": 1, \"day\": \"Hoy\", \"slots\": [{\"id\": 101, \"time\": \"14:00 - 16:00\", \"available\": true}]}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "19549b57-2c7b-4824-a2a6-543b3bbc8019",
+      "documentation": "Get Schedule Availability",
+      "method": "get",
+      "endpoint": "deliveryinfo/scheduleAvailability",
+      "responses": [
+        {
+          "uuid": "980446a7-2292-4ca4-93f7-c646571f3868",
+          "body": "{\"available\": true}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "246d931f-7d02-4551-9286-e52bf3271fc8",
+      "documentation": "Cart Confirmation",
+      "method": "post",
+      "endpoint": "cartconfirmation",
+      "responses": [
+        {
+          "uuid": "e5fe6253-6a0b-47a7-9137-58cb69c39c34",
+          "body": "{\n  \"orderId\": \"ORD-2026-X99\",\n  \"status\": \"CONFIRMED\",\n  \"message\": \"¡Pedido exitoso!\",\n  \"estimatedDelivery\": \"2026-02-21 16:45\"\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "064c77d1-dc8e-4a81-84a3-ec8675e010cb",
+      "documentation": "Verify Cancel Status",
+      "method": "get",
+      "endpoint": "shoppingcart/cancellable/:id",
+      "responses": [
+        {
+          "uuid": "9b6f8df8-b6f6-4e25-be97-ebd9b0a3ba3b",
+          "body": "{\"cancellable\": true}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "82d30886-87a5-44a9-ba9e-6c07537d2eba",
+      "documentation": "Get Order History",
+      "method": "get",
+      "endpoint": "gethistory",
+      "responses": [
+        {
+          "uuid": "10cc2e66-57cb-4d54-b8a4-d9e531754916",
+          "body": "{\n  \"orders\": [\n    {\"id\": \"ORD-001\", \"date\": \"2026-01-20\", \"status\": \"DELIVERED\", \"total\": 89.50}\n  ]\n}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "70ce6f93-2dde-43d8-ac7e-8e5023271b18",
+      "documentation": "Get Antifraud Info",
+      "method": "get",
+      "endpoint": "antifraud/search/:cartId",
+      "responses": [
+        {
+          "uuid": "a6436360-fdc1-4bd0-a008-6d31428c8eb9",
+          "body": "{\"approved\": true, \"riskScore\": 5}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "e331c413-1b9c-444d-b15f-24ba8614f638",
+      "documentation": "Get Purchase Number",
+      "method": "post",
+      "endpoint": "v1/pagoweb/purchaseNumber",
+      "responses": [
+        {
+          "uuid": "38252147-550d-4549-9582-22592727c773",
+          "body": "{\"purchaseNumber\": \"P9912837\", \"amount\": 156.90}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "68b35826-d469-4c38-9243-a14217a97d5b",
+      "documentation": "Update Purchase Status",
+      "method": "put",
+      "endpoint": "v1/pagoweb/purchaseNumberStatus",
+      "responses": [
+        {
+          "uuid": "dd851851-eefa-45ab-b2a6-6326400963cc",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "20273697-1633-4a07-a369-9723bc6cdd16",
+      "documentation": "Get Nearest Drugstores",
+      "method": "post",
+      "endpoint": "v0/drugstores/nearestDrugstores",
+      "responses": [
+        {
+          "uuid": "728aa5ed-0795-4c28-9de2-3399623403cb",
+          "body": "[\n  {\"id\": \"DS01\", \"name\": \"FarmaDev Larco\", \"address\": \"Av. Larco 456\", \"isOpen\": true}\n]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "bbd180d9-3108-4a1a-9a53-15d91ef686ae",
+      "documentation": "Get Pickup Users",
+      "method": "get",
+      "endpoint": "deliveryinfo/peopleForStorePickup/obtain",
+      "responses": [
+        {
+          "uuid": "4fd94973-385d-4bad-abe3-871796aba6aa",
+          "body": "{\"people\": [{\"id\": 1, \"name\": \"Juan Pérez\", \"documentNumber\": \"12345678\"}]}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "eb5361ae-50cc-4278-99c4-0118615da91b",
+      "documentation": "Register Pickup User",
+      "method": "post",
+      "endpoint": "deliveryinfo/peopleForStorePickup",
+      "responses": [
+        {
+          "uuid": "058cd420-313c-460b-bfd4-d56fa7f455c7",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "79df1bb4-d248-481e-ada7-0ab6caedf33e",
+      "documentation": "Update Pickup User",
+      "method": "put",
+      "endpoint": "deliveryinfo/peopleForStorePickup/update/:id",
+      "responses": [
+        {
+          "uuid": "8fabbad8-7f9f-4875-910d-7d244da2f9d9",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "667de5a3-4d18-4c7c-9304-bb0374f062f5",
+      "documentation": "Delete Pickup User",
+      "method": "delete",
+      "endpoint": "deliveryinfo/peopleForStorePickup/:id",
+      "responses": [
+        {
+          "uuid": "6d7e322c-04a7-444d-a0b8-02e09e1a2b90",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "2e205ccf-3856-4c7c-b051-56b290f6fdbd",
+      "documentation": "Set Default Pickup User",
+      "method": "delete",
+      "endpoint": "deliveryinfo/peopleForStorePickup/defaultPerson/:id",
+      "responses": [
+        {
+          "uuid": "5314b79b-d2cb-454a-a874-edec2e739431",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "c0b8bf3f-2b00-44e9-a923-ca7f11b8cb45",
+      "documentation": "Update Pay Online",
+      "method": "post",
+      "endpoint": "payonline/update",
+      "responses": [
+        {
+          "uuid": "55571d36-2ef4-41cf-a173-a23a4c9b30f4",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "873a0239-10f3-468d-b222-3680bf22f8d1",
+      "documentation": "Validate RUC",
+      "method": "get",
+      "endpoint": "validateRuc/:ruc",
+      "responses": [
+        {
+          "uuid": "ba8f8bba-c3e9-4883-bd56-5e9942d658c7",
+          "body": "{\"valid\": true, \"razonSocial\": \"FARMADEV SOLUTIONS S.A.C.\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "e99bfde8-3573-4dcb-a85e-92742ecddf63",
+      "documentation": "Apply Discount Code",
+      "method": "post",
+      "endpoint": "dsc/discountByCode",
+      "responses": [
+        {
+          "uuid": "dc19b158-e043-4a26-872b-8eef92b45f12",
+          "body": "{\"valid\": true, \"discountValue\": 15.00, \"message\": \"¡Cupón aceptado!\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "580408aa-cdcf-49e0-8980-82a9e11a3a33",
+      "documentation": "Get Discount Status",
+      "method": "get",
+      "endpoint": "dsc/discountStatus/:filter",
+      "responses": [
+        {
+          "uuid": "9e654be5-7a12-4969-a636-5b54a4fc2781",
+          "body": "{\"hasDiscount\": true, \"referralCode\": \"DEV2026\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "653aecd3-25f9-4e52-88bb-8affaa594d19",
+      "documentation": "Get User Discount",
+      "method": "post",
+      "endpoint": "dsc/discountByUser",
+      "responses": [
+        {
+          "uuid": "80fe1e64-a030-4402-9d0f-e10bd9c4b4af",
+          "body": "{\"discounts\": [{\"code\": \"BIENVENIDA\", \"value\": 10}]}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "325d9440-d4b6-473f-a684-deaac52f9e60",
+      "documentation": "Get User by Phone",
+      "method": "get",
+      "endpoint": "user/phone/:phone",
+      "responses": [
+        {
+          "uuid": "8d31e766-86ea-4cae-a169-665db0c1fa3c",
+          "body": "{\"name\": \"Juan\", \"email\": \"juan@dev.com\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "709bf740-cab8-45d0-a887-0a86d891f352",
+      "documentation": "Get User V2",
+      "method": "get",
+      "endpoint": "user/v2/api/:uid",
+      "responses": [
+        {
+          "uuid": "c85d5b3d-a760-4ea8-89cc-9b29ab1a5077",
+          "body": "{\"code\": \"200\", \"data\": {\"name\": \"Juan\", \"paternalLastName\": \"Pérez\"}}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8b582f2e-7099-43cb-8810-9b4a4bce05d6",
+      "documentation": "Get User from Coinpurse",
+      "method": "get",
+      "endpoint": "user/v2/api/buscarCliente/:docNumber",
+      "responses": [
+        {
+          "uuid": "292fa314-376d-4aeb-a643-1eb7686c4bba",
+          "body": "{\"code\": \"200\", \"data\": {\"points\": 550}}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4866e144-e250-4468-8f02-8f4a0bd19577",
+      "documentation": "Save Notification Token",
+      "method": "post",
+      "endpoint": "notificationtoken",
+      "responses": [
+        {
+          "uuid": "80a8b44c-f6a5-4337-911c-7abfc468d62f",
+          "body": "{}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a3d4241e-eb77-4c93-ae0d-73f472f9e54c",
+      "documentation": "Get User",
+      "method": "get",
+      "endpoint": "getuser",
+      "responses": [
+        {
+          "uuid": "defe8c10-72e1-4c6d-93a5-edfab84e8748",
+          "body": "{\"dni\": \"12345678\", \"name\": \"Juan\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "b947cf57-2f84-4611-ba25-f86935880624",
+      "documentation": "Add/Update Address",
+      "method": "post",
+      "endpoint": "address",
+      "responses": [
+        {
+          "uuid": "2e38aba0-b270-416b-afa2-fbe2d453a4fe",
+          "body": "{\"id\": 1, \"alias\": \"Casa\", \"address\": \"Av. Pardo 123\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f6e89707-180e-4675-a91a-a7bff8be94dc",
+      "documentation": "Check Coverage Location",
+      "method": "get",
+      "endpoint": "coverage-locations",
+      "responses": [
+        {
+          "uuid": "4dc7eaa6-1541-4ea5-b9e7-b33a60b10aa2",
+          "body": "{\"hasCoverage\": true, \"zoneName\": \"Miraflores\"}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "b4750904-b025-4f5c-adfb-ffe115873343",
+      "documentation": "Get Document Types",
+      "method": "get",
+      "endpoint": "user/v2/api/identityDocumentType",
+      "responses": [
+        {
+          "uuid": "320a83a1-6e91-4447-b608-186269b07f89",
+          "body": "[{\"id\": 1, \"name\": \"DNI\"}, {\"id\": 2, \"name\": \"CE\"}]",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "cb553b66-939a-4e81-bb6d-cbd1e2467f09",
+      "documentation": "Get FAQ Sections",
+      "method": "get",
+      "endpoint": "faq/sections",
+      "responses": [
+        {
+          "uuid": "c5bc9fdc-641f-4d46-af44-311b87c72d34",
+          "body": "{\"sections\": [{\"id\": 1, \"name\": \"Envíos\"}, {\"id\": 2, \"name\": \"Pagos\"}]}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "774ea2b3-0614-44b0-9547-764423cea224",
+      "documentation": "Get Coupons",
+      "method": "post",
+      "endpoint": "coupons",
+      "responses": [
+        {
+          "uuid": "b8a0f48e-264e-486f-9abe-b927453b9129",
+          "body": "{\"companyName\": \"FarmaDev\", \"data\": [{\"id\": \"CPN01\", \"code\": \"CYBER20\", \"discount\": 20}]}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3b9cd276-0839-4324-96ab-a6c58b957528",
+      "documentation": "Get Points Benefits",
+      "method": "post",
+      "endpoint": "benefits",
+      "responses": [
+        {
+          "uuid": "841c09e2-4761-4321-a2a8-32462445b5df",
+          "body": "{\"points\": 1500, \"pointsEquivalentToSoles\": 15.00}",
+          "statusCode": 200,
+          "latency": 0,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "a50733e6-5777-47c9-88a8-96d169befd10"
+    },
+    {
+      "type": "route",
+      "uuid": "8cc7f193-c8fa-475a-8b1f-a920f120840a"
+    },
+    {
+      "type": "route",
+      "uuid": "ad764d1a-03d7-484f-95e4-8370acc73e79"
+    },
+    {
+      "type": "route",
+      "uuid": "1ef9fc5b-ae66-410e-8b2f-8c394ea8a120"
+    },
+    {
+      "type": "route",
+      "uuid": "7ddcf6e1-cca9-462c-ac17-53ad9441d75b"
+    },
+    {
+      "type": "route",
+      "uuid": "bb17b30b-008a-47a0-8a8a-471c17c18848"
+    },
+    {
+      "type": "route",
+      "uuid": "aea6eee2-9c9d-4f99-b831-fb5b7423d09e"
+    },
+    {
+      "type": "route",
+      "uuid": "4f8cf3f1-9d0f-4749-aa91-23d87887bc3d"
+    },
+    {
+      "type": "route",
+      "uuid": "61bd809c-7252-4a31-a2ed-18cf327eca3a"
+    },
+    {
+      "type": "route",
+      "uuid": "c106cc69-8726-403a-81b7-98854c8e34c0"
+    },
+    {
+      "type": "route",
+      "uuid": "174ee5ec-10a1-4507-8021-e26a92ead646"
+    },
+    {
+      "type": "route",
+      "uuid": "fe5af3a7-587f-42f3-b253-8356045b4fcc"
+    },
+    {
+      "type": "route",
+      "uuid": "3c775939-ecd2-4673-9cbf-55c6580fba1e"
+    },
+    {
+      "type": "route",
+      "uuid": "75f51a52-2d12-4a78-9453-c978056a07ab"
+    },
+    {
+      "type": "route",
+      "uuid": "6d0fd7a2-39de-44ba-9bde-9237a400ab57"
+    },
+    {
+      "type": "route",
+      "uuid": "df1eabba-9e6e-4cd6-be02-df857ee912a4"
+    },
+    {
+      "type": "route",
+      "uuid": "2fb75655-eb88-421d-8f75-e556d4b46e42"
+    },
+    {
+      "type": "route",
+      "uuid": "8d86e582-ca7d-4cea-b451-1d4c83befb03"
+    },
+    {
+      "type": "route",
+      "uuid": "5fef6bf2-c2b3-41a1-a572-0b699386e14c"
+    },
+    {
+      "type": "route",
+      "uuid": "5caf15a1-0330-4cdf-adac-871661045192"
+    },
+    {
+      "type": "route",
+      "uuid": "62ffccd4-33ce-4312-bd19-cc055a7598f7"
+    },
+    {
+      "type": "route",
+      "uuid": "a9dab34f-70d7-462c-bdb2-6f6ae8a28612"
+    },
+    {
+      "type": "route",
+      "uuid": "4c9a3c8e-8066-40ec-9345-b79f3d33289c"
+    },
+    {
+      "type": "route",
+      "uuid": "84133495-018f-427e-bd79-942a74139759"
+    },
+    {
+      "type": "route",
+      "uuid": "17342fa6-6b2b-4fe6-b38e-f6a63eedd216"
+    },
+    {
+      "type": "route",
+      "uuid": "19549b57-2c7b-4824-a2a6-543b3bbc8019"
+    },
+    {
+      "type": "route",
+      "uuid": "246d931f-7d02-4551-9286-e52bf3271fc8"
+    },
+    {
+      "type": "route",
+      "uuid": "064c77d1-dc8e-4a81-84a3-ec8675e010cb"
+    },
+    {
+      "type": "route",
+      "uuid": "82d30886-87a5-44a9-ba9e-6c07537d2eba"
+    },
+    {
+      "type": "route",
+      "uuid": "70ce6f93-2dde-43d8-ac7e-8e5023271b18"
+    },
+    {
+      "type": "route",
+      "uuid": "e331c413-1b9c-444d-b15f-24ba8614f638"
+    },
+    {
+      "type": "route",
+      "uuid": "68b35826-d469-4c38-9243-a14217a97d5b"
+    },
+    {
+      "type": "route",
+      "uuid": "20273697-1633-4a07-a369-9723bc6cdd16"
+    },
+    {
+      "type": "route",
+      "uuid": "bbd180d9-3108-4a1a-9a53-15d91ef686ae"
+    },
+    {
+      "type": "route",
+      "uuid": "eb5361ae-50cc-4278-99c4-0118615da91b"
+    },
+    {
+      "type": "route",
+      "uuid": "79df1bb4-d248-481e-ada7-0ab6caedf33e"
+    },
+    {
+      "type": "route",
+      "uuid": "667de5a3-4d18-4c7c-9304-bb0374f062f5"
+    },
+    {
+      "type": "route",
+      "uuid": "2e205ccf-3856-4c7c-b051-56b290f6fdbd"
+    },
+    {
+      "type": "route",
+      "uuid": "c0b8bf3f-2b00-44e9-a923-ca7f11b8cb45"
+    },
+    {
+      "type": "route",
+      "uuid": "873a0239-10f3-468d-b222-3680bf22f8d1"
+    },
+    {
+      "type": "route",
+      "uuid": "e99bfde8-3573-4dcb-a85e-92742ecddf63"
+    },
+    {
+      "type": "route",
+      "uuid": "580408aa-cdcf-49e0-8980-82a9e11a3a33"
+    },
+    {
+      "type": "route",
+      "uuid": "653aecd3-25f9-4e52-88bb-8affaa594d19"
+    },
+    {
+      "type": "route",
+      "uuid": "325d9440-d4b6-473f-a684-deaac52f9e60"
+    },
+    {
+      "type": "route",
+      "uuid": "709bf740-cab8-45d0-a887-0a86d891f352"
+    },
+    {
+      "type": "route",
+      "uuid": "8b582f2e-7099-43cb-8810-9b4a4bce05d6"
+    },
+    {
+      "type": "route",
+      "uuid": "4866e144-e250-4468-8f02-8f4a0bd19577"
+    },
+    {
+      "type": "route",
+      "uuid": "a3d4241e-eb77-4c93-ae0d-73f472f9e54c"
+    },
+    {
+      "type": "route",
+      "uuid": "b947cf57-2f84-4611-ba25-f86935880624"
+    },
+    {
+      "type": "route",
+      "uuid": "f6e89707-180e-4675-a91a-a7bff8be94dc"
+    },
+    {
+      "type": "route",
+      "uuid": "b4750904-b025-4f5c-adfb-ffe115873343"
+    },
+    {
+      "type": "route",
+      "uuid": "cb553b66-939a-4e81-bb6d-cbd1e2467f09"
+    },
+    {
+      "type": "route",
+      "uuid": "774ea2b3-0614-44b0-9547-764423cea224"
+    },
+    {
+      "type": "route",
+      "uuid": "3b9cd276-0839-4324-96ab-a6c58b957528"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}
