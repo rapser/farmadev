@@ -1,0 +1,10 @@
+// Prod build configuration — points at the deployed Render backend.
+// Replace with the live Render URL once deployed (see ~/Downloads/farmedev-documentacion/RENDER_DEPLOY.md).
+API_BASE_URL = https:/$()/REPLACE_WITH_YOUR_RENDER_URL.onrender.com/api/v1
+
+// Fill in with a Google Cloud API key (Maps SDK for iOS + Places API enabled). See GOOGLE_MAPS_SETUP.md.
+GOOGLE_MAPS_API_KEY = REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY
+
+// API_BASE_URL / GOOGLE_MAPS_API_KEY are read into Info.plist via $(VAR) substitution
+// (see farmedev/Info.plist) since Xcode's INFOPLIST_KEY_ auto-generation mechanism only
+// recognizes Apple's own known keys, not custom ones.
