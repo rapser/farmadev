@@ -17,9 +17,23 @@
 		630772DB74B51BB81D546F5C /* QA.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = QA.xcconfig; path = farmedev/Config/QA.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4629E7813016E32D003AC666 /* Exceptions for "farmedev" folder in "farmedev" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Config/Prod.xcconfig,
+				Config/QA.xcconfig,
+			);
+			target = 464AD76C2F248A57009A4811 /* farmedev */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		464AD76F2F248A57009A4811 /* farmedev */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4629E7813016E32D003AC666 /* Exceptions for "farmedev" folder in "farmedev" target */,
+			);
 			path = farmedev;
 			sourceTree = "<group>";
 		};
@@ -91,7 +105,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					464AD76C2F248A57009A4811 = {
 						CreatedOnToolsVersion = 26.0;

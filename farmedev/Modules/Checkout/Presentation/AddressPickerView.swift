@@ -3,12 +3,14 @@
 //  farmedev
 //
 //  Map-based address entry: drag the map, the fixed center pin marks the delivery point;
-//  reverse geocoding (CLGeocoder) turns the dropped pin into a human-readable address
-//  before saving. Entry point of the Checkout address step.
+//  reverse geocoding (GMSGeocoder, part of the GoogleMaps SDK already in use for the map
+//  itself) turns the dropped pin into a human-readable address before saving. Entry point
+//  of the Checkout address step. Uses Google's geocoder rather than CLGeocoder/MapKit so
+//  there's a single mapping provider for the whole picker.
 //
 
 import SwiftUI
-import CoreLocation
+import GoogleMaps
 
 private let limaCoordinate = CLLocationCoordinate2D(latitude: -12.0464, longitude: -77.0428)
 
@@ -24,7 +26,7 @@ struct AddressPickerView: View {
     @State private var isResolvingAddress = false
     @State private var isSaving = false
 
-    private let geocoder = CLGeocoder()
+    private let geocoder = GMSGeocoder()
 
     var body: some View {
         ZStack {
@@ -89,12 +91,11 @@ struct AddressPickerView: View {
 
     private func resolveAddress() {
         isResolvingAddress = true
-        geocoder.reverseGeocodeLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)) { placemarks, _ in
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, _ in
             isResolvingAddress = false
-            guard let placemark = placemarks?.first else { return }
-            let street = [placemark.thoroughfare, placemark.subThoroughfare].compactMap { $0 }.joined(separator: " ")
-            addressLine = street.isEmpty ? (placemark.name ?? "") : street
-            district = placemark.locality ?? placemark.subAdministrativeArea ?? ""
+            guard let result = response?.firstResult() else { return }
+            addressLine = result.lines?.first ?? result.thoroughfare ?? ""
+            district = result.locality ?? result.subLocality ?? result.administrativeArea ?? ""
         }
     }
 
