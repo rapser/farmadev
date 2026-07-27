@@ -8,26 +8,27 @@ import Foundation
 @Observable
 final class InicioViewModel {
     var isLoading = false
-    private let productUseCase: ProductUseCase
+    var categories: [StoreCategoryUI] = []
+    var featuredProducts: [StoreProductUI] = []
+    var banners: [StoreBannerUI] = []
 
-    init(productUseCase: ProductUseCase? = nil) {
-        if let uc = productUseCase {
-            self.productUseCase = uc
-        } else {
-            let repo = ProductDataRepository(
-                productDataStoreFactory: ProductDataStoreFactory.shared,
-                sessionDataStoreFactory: SessionDataStoreFactory.shared
-            )
-            self.productUseCase = ProductUseCase(productRepository: repo)
-        }
+    private let catalogUseCase: StoreCatalogUseCase
+
+    init(catalogUseCase: StoreCatalogUseCase = StoreCatalogUseCase()) {
+        self.catalogUseCase = catalogUseCase
     }
 
     @MainActor
     func load() async {
         isLoading = true
         defer { isLoading = false }
-        _ = try? await productUseCase.getDashboard()
-        _ = try? await productUseCase.getSliderBanners()
-        _ = try? await productUseCase.getSliderCategory()
+
+        async let categoriesResult = try? catalogUseCase.getCategories()
+        async let featuredResult = try? catalogUseCase.getFeaturedProducts(limit: 6)
+        async let bannersResult = try? catalogUseCase.getBanners(placement: "home_top")
+
+        categories = (await categoriesResult)?.map { $0.toUI() } ?? []
+        featuredProducts = (await featuredResult)?.map { $0.toUI() } ?? []
+        banners = (await bannersResult)?.map { $0.toUI() } ?? []
     }
 }

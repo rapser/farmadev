@@ -1,0 +1,12 @@
+// QA build configuration — points at a locally-run backend (nest start --watch) connected to the
+// Neon "qa" data. See ~/Downloads/farmedev-documentacion/IOS_SCHEMES_SETUP.md.
+//
+// For physical-device testing, replace localhost with your Mac's LAN IP (e.g. 192.168.1.x).
+API_BASE_URL = http:/$()/localhost:3000/api/v1
+
+// Fill in with a Google Cloud API key (Maps SDK for iOS + Places API enabled). See GOOGLE_MAPS_SETUP.md.
+GOOGLE_MAPS_API_KEY = REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY
+
+// API_BASE_URL / GOOGLE_MAPS_API_KEY are read into Info.plist via $(VAR) substitution
+// (see farmedev/Info.plist) since Xcode's INFOPLIST_KEY_ auto-generation mechanism only
+// recognizes Apple's own known keys, not custom ones.

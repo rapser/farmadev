@@ -17,6 +17,8 @@ struct MainTabView: View {
     @Binding var selectedTab: MainTab
     @Environment(AppState.self) private var appState
     @State private var inicioCoordinator = InicioCoordinator()
+    @State private var comprasCoordinator = ComprasCoordinator()
+    @State private var accountCoordinator = AccountCoordinator()
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -25,9 +27,9 @@ struct MainTabView: View {
                 case .inicio:
                     InicioCoordinatorView(coordinator: inicioCoordinator)
                 case .compras:
-                    NavigationStack { ComprasView() }
+                    ComprasCoordinatorView(coordinator: comprasCoordinator)
                 case .cuenta:
-                    NavigationStack { CuentaView() }
+                    AccountCoordinatorView(coordinator: accountCoordinator)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
