@@ -5,6 +5,35 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.0.0/).
 
 ---
 
+## [Unreleased] — integración con backend real (farma-dev-api)
+
+### Añadido
+
+- **Arquitectura modular** (`Core/` + `Modules/Auth|Catalog|Cart|Checkout|Orders|Account/`), pensada para poder extraer cada módulo a un paquete SPM privado más adelante — ver `~/Downloads/farmedev-documentacion/PLAN.md`.
+- **Networking real con Alamofire**: `Core/Networking/APIClient.swift` reemplaza el cliente URLSession original manteniendo el mismo `APIClientProtocol`; `AuthTokenInterceptor` adjunta el token en cada request y refresca automáticamente en un `401` (single-flight, un solo reintento).
+- **Esquemas QA/Prod**: `farmedev-QA` (backend local) y `farmedev-Prod` (Render), con `Config/QA.xcconfig` / `Config/Prod.xcconfig` inyectando `API_BASE_URL` y `GOOGLE_MAPS_API_KEY` a un `Info.plist` explícito (reemplaza el auto-generado).
+- **Autenticación real** (`Modules/Auth`): login, registro (ahora pide nombres/apellidos), reset de contraseña, todo contra JWT access+refresh del backend. `AppState` pasa a ser async y expone `authErrorMessage`.
+- **Modo invitado**: la app ya no bloquea la navegación detrás del login — `AppState.requireAuth(action:)` pide sesión solo al pagar, marcar favorito, o abrir Cuenta. `ContentView` deja de gatear `MainTabView`.
+- **Carrito con SwiftData para invitados** (`Modules/Cart`): `CartLocalDataStore` (SwiftData) para invitados, `CartCloudDataStore` para autenticados, mismo protocolo `CartRepository`; `MergeGuestCartUseCase` fusiona el carrito local al iniciar sesión.
+- **Catálogo real** (`Modules/Catalog`): Inicio y Compras dejan de mostrar datos hardcodeados — categorías, banners y productos vienen de `GET /categories|/banners|/products*`. Nuevas pantallas `ProductDetailView` y `ProductGridView` (paginado con "Cargar más").
+- **Checkout completo** (`Modules/Checkout`): selector de dirección con **Google Maps** (pin central + geocoding inverso con `CLGeocoder`), método de pago (efectivo/tarjeta), resumen y confirmación de pedido.
+- **Historial de pedidos y cuenta real** (`Modules/Orders`, `Modules/Account`): `OrderHistoryView`, `OrderDetailView`, `ProfileEditView`, `FavoritesView`, nuevo `AccountCoordinator`. `CuentaView` muestra un prompt de login para invitados en vez de datos falsos.
+- **Feature flags remotos** (`Core/FeatureFlags`): la app consulta `GET /feature-flags` al iniciar; permite apagar checkout/favoritos/una campaña sin nuevo build.
+- **Logout robusto**: `SessionStore.clear()` enumera explícitamente cada clave que guarda (tokens, perfil cacheado) para que el logout nunca deje credenciales huérfanas en Keychain; también limpia el carrito local de invitado.
+
+### Modificado
+
+- `AppState`: login/register/logout ahora son `async`, respaldados por `Modules/Auth`'s `AppAuthUseCase` en vez de lógica local falsa.
+- `RegisterView`/`RegisterFormFields`: agregan campos de nombres/apellidos (antes solo pedían correo/contraseña).
+- `ComprasView`, `InicioView`, `CarritoView`, `CuentaView`: reescritos para consumir ViewModels reales en vez de arrays estáticos.
+- `MainTabView`: los 3 tabs ahora usan coordinadores propios (`InicioCoordinatorView`, `ComprasCoordinatorView`, `AccountCoordinatorView`).
+
+### Fuera de alcance (documentado)
+
+Cupones, puntos/fidelización, referidos, "Monedero del Ahorro", login social real, pasarela de pago real, envío de emails transaccionales — ver `~/Downloads/farmedev-documentacion/PLAN.md` sección 2.10.
+
+---
+
 ## [Unreleased] — feature/mappers → develop
 
 ### Añadido

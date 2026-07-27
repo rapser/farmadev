@@ -6,6 +6,7 @@
 import SwiftUI
 
 struct InicioView: View {
+    @Environment(InicioCoordinator.self) private var coordinator
     @State private var viewModel = InicioViewModel()
     @State private var searchText: String = ""
 
@@ -28,10 +29,20 @@ struct InicioView: View {
     private var contentSection: some View {
         VStack(spacing: 20) {
             InicioSavingsCards()
-            InicioBannerCarousel()
+            InicioBannerCarousel(banners: viewModel.banners)
             InicioMonederoSection()
-            InicioCatalogSection()
-            InicioProductBannerCarousel()
+            InicioCatalogSection(
+                categories: viewModel.categories,
+                onTapCategory: { category in
+                    coordinator.showProductGrid(title: category.name, categoryId: category.id, search: nil)
+                },
+                onShowAll: {
+                    coordinator.showProductGrid(title: "Catálogo", categoryId: nil, search: nil)
+                }
+            )
+            InicioProductBannerCarousel(products: viewModel.featuredProducts) { product in
+                coordinator.showProductDetail(id: product.id)
+            }
             monederoInfoSection
         }
         .padding(.horizontal, 16)
@@ -50,6 +61,6 @@ struct InicioView: View {
 }
 
 #Preview {
-    InicioView()
+    InicioCoordinatorView(coordinator: InicioCoordinator())
         .environment(AppState())
 }

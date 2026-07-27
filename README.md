@@ -1,6 +1,6 @@
 # farmedev
 
-Aplicación **iOS** para farmacia (Mifarma), construida con **SwiftUI** y **Clean Architecture**. Los datos se obtienen por defecto de una API de desarrollo (Mockoon en `localhost:3000`).
+Aplicación **iOS** para farmacia, construida con **SwiftUI**, **Clean Architecture + MVVM + Coordinator**, reactividad con el framework **Observation** (`@Observable`), y networking con **Alamofire** contra un backend real (**NestJS + PostgreSQL/Neon**, repo hermano [`farma-dev-api`](../Backend/farma-dev-api)).
 
 ---
 
@@ -8,166 +8,87 @@ Aplicación **iOS** para farmacia (Mifarma), construida con **SwiftUI** y **Clea
 
 | Elemento | Detalle |
 |---|---|
-| Plataforma | iOS 17+ (iPhone) |
-| Framework UI | SwiftUI |
-| Lenguaje | Swift |
-| Gestión de dependencias | Xcode nativo (sin SPM externo) |
-| Seguridad | Security framework (Keychain) |
-| Entry point | `farmedevApp.swift` → `ContentView` |
+| Plataforma | iOS 26.0+ |
+| Framework UI | SwiftUI, reactividad con `Observation` (`@Observable`) |
+| Lenguaje | Swift 5, 100% async/await |
+| Networking | Alamofire (`Core/Networking`) |
+| Persistencia | Keychain (sesión/tokens), SwiftData (carrito de invitado) |
+| Mapas | Google Maps SDK for iOS (selector de dirección en Checkout) |
+| Backend | NestJS + TypeORM + PostgreSQL (Neon), ver `farma-dev-api/README.md` |
 
 ---
 
-## Arquitectura: Clean Architecture
+## Esquemas: QA vs Prod
 
-El proyecto se organiza en tres capas con dependencia unidireccional hacia el dominio.
+El proyecto tiene dos esquemas además del original `farmedev`:
 
-### Domain
-- **Models:** entidades de negocio (`Product`, `UserLogin`, `ShoppingCart`, `Address`, etc.)
-- **Repositories (protocolos):** contratos de acceso a datos
-- **UseCases:** lógica de aplicación (`AuthUseCase`, `ProductUseCase`, `CatalogUseCase`, etc.)
-- **Requests / Responses:** DTOs de dominio
+| Esquema | Configuración | `API_BASE_URL` |
+|---|---|---|
+| **farmedev-QA** | Debug-QA / Release-QA | `http://localhost:3000/api/v1` (backend local, `nest start --watch`) |
+| **farmedev-Prod** | Debug-Prod / Release-Prod | URL de Render desplegada (`Config/Prod.xcconfig`) |
 
-### Data
-- **Models (DTOs):** estructuras que reflejan la API
-- **Mappers:** DTO → Domain
-- **DataStores:** implementaciones cloud y local (`*CloudDataStore`, `*LocalDataStore`)
-- **Repositories:** implementan los protocolos del dominio
-- **Networking:** `APIClient` (URLSession) + `APIEnvironment` (Mockoon / producción)
-- **Services:** `KeychainService` y `SessionStore` para persistencia segura de sesión
+Los valores viven en `Config/QA.xcconfig` y `Config/Prod.xcconfig`, inyectados a `Info.plist` (`API_BASE_URL`, `GOOGLE_MAPS_API_KEY`). Detalles paso a paso: `~/Downloads/farmedev-documentacion/IOS_SCHEMES_SETUP.md`.
 
-### Presentation
-- **Coordinators:** `AuthCoordinator`, `InicioCoordinator` — navegación type-safe con `NavigationPath`
-- **Features:** cada feature tiene vista principal, ViewModel y subcarpeta `Components/`
-- **ViewModels:** `@Observable` (`InicioViewModel`, `HomeViewModel`)
-- **Models (UI):** `*UI`
-- **Mappers:** Domain → UI (`*UIMapper`)
+Para probar en dispositivo físico contra el backend local, reemplaza `localhost` por la IP LAN de tu Mac en `Config/QA.xcconfig`.
 
 ---
 
-## Navegación — Coordinator Pattern
+## Arquitectura: módulos (monolito hoy, listos para SPM privado a futuro)
 
-La app usa el patrón **Coordinator** con `NavigationStack` + `navigationDestination(for:)` (iOS 16+).
-
-```
-farmedevApp
-└── ContentView
-    ├── AuthCoordinatorView        (isLoggedIn = false)
-    │   └── NavigationStack
-    │       ├── LoginView
-    │       ├── LoginPasswordView
-    │       ├── RegisterView
-    │       └── ResetPasswordView
-    └── MainTabView                (isLoggedIn = true)
-        ├── InicioCoordinatorView
-        │   └── NavigationStack
-        │       ├── InicioView
-        │       ├── AddressSearchView
-        │       └── CarritoView
-        ├── ComprasView
-        └── CuentaView
-```
-
----
-
-## Flujo de la app
-
-### Autenticación
-- **Login con correo:** email → pantalla de contraseña → Home
-- **Login social:** tap en Google → Home directo
-- **Sesión persistente:** el email se guarda en **Keychain**; al reabrir la app la sesión se restaura automáticamente sin pasar por el login
-- **Logout:** Cuenta → "Cerrar sesión" limpia el Keychain y regresa al Login
-
-### Home (Inicio)
-- Barra de dirección sticky (tap → `AddressSearchView`)
-- Ícono de carrito con contenedor oscuro (tap → `CarritoView`)
-- Tarjetas de ahorro (Ahorraste / Tienes)
-- **Banner carousel** — 3 slides, auto-avance 5 s, dots morado/gris
-- Monedero del Ahorro (scroll horizontal de acciones)
-- Catálogo de productos (5 categorías)
-- **Product banner carousel** (Beauty Week) — 3 slides, auto-avance 5 s, dots morado/gris
-- Sección "Conoce tu Monedero del Ahorro" (título fuera, card con descripción y link)
-
-### Dirección (`AddressSearchView`)
-- Campo de búsqueda con ícono, teclado automático al abrir
-- Estado vacío: acceso directo a "Mi ubicación actual"
-- Estado con texto: lista filtrada en tiempo real + "¿No encuentras la dirección?"
-- Disclaimer inferior fijo
-- Al seleccionar un resultado actualiza `AppState.defaultAddress` en toda la app
-
-### Carrito (`CarritoView`)
-- Barra de dirección + Delivery en la parte superior
-- Tabs "Mi carrito" / "Mis favoritos" (ícono filled/outline según selección, texto siempre morado)
-- Empty state con CTA "Ir a comprar"
-- **"¿No olvidas nada? 👀"** — carrusel de 5 páginas × 2 productos, auto-avance 3 s, dots naranja/gris
-
-### Compras
-- Barra de dirección sticky con carrito
-- Chips de categoría horizontales
-- Banner carousel (5 slides, auto-avance 5 s, dots morado/gris)
-- Filas de productos (Ofertas del día, Lo más vendido)
-- Banner de cuenta regresiva
-
-### Cuenta
-- Perfil con nombre del usuario
-- Accesos rápidos (Mi perfil, Mis pedidos, Mis favoritos)
-- Lista de opciones con chevron
-- Botón "Cerrar sesión"
-
----
-
-## Estructura de carpetas
+Todo el código nuevo (todo excepto el pipeline legacy de ~90 entidades bajo `Domain/`/`Data/`/`Presentation/` en la raíz, que se deja intacto y sin usar) sigue una estructura por módulo pensada para poder extraerse a paquetes SPM privados más adelante sin reescribir nada — ver el detalle de la regla de dependencias en `~/Downloads/farmedev-documentacion/PLAN.md` sección 2.1.
 
 ```
 farmedev/
-├── App/
-│   ├── farmedevApp.swift
-│   ├── ContentView.swift
-│   └── AppState.swift
-├── Data/
-│   ├── Networking/        APIClient, APIEnvironment
-│   ├── Services/          KeychainService, SessionStore
-│   ├── Repository/
-│   ├── Models/            DTOs
-│   └── Mappers/
-├── Domain/
-│   ├── Models/
-│   ├── Repository/        Protocolos
-│   └── UseCases/
-└── Presentation/
-    ├── Coordinators/      AuthCoordinator, InicioCoordinator
-    ├── Features/
-    │   ├── Auth/          + Components/
-    │   ├── Inicio/        + Components/
-    │   ├── Carrito/       + Components/
-    │   ├── Compras/       + Components/
-    │   ├── Cuenta/        + Components/
-    │   ├── Home/          + Components/
-    │   └── MainTab/
-    ├── Models/            *UI
-    ├── Mappers/           *UIMapper
-    └── Shared/
+├── App/                    Composition root: farmedevApp, AppState, ContentView, MainTabView
+├── Core/                   Sin dependencias de features — networking, sesión, feature flags, utilidades
+│   ├── Networking/         APIClient (Alamofire), APIEnvironment, AuthTokenInterceptor, APIClientFactory
+│   ├── Session/            SessionStore (Keychain), KeychainService
+│   ├── FeatureFlags/       FeatureFlagsStore, FeatureFlagsService
+│   └── Shared/             Paginated<T>, CurrencyFormatting
+├── Modules/
+│   ├── Auth/               Login, registro, reset de contraseña — JWT access+refresh
+│   ├── Catalog/             Inicio, Compras, detalle y grilla de producto
+│   ├── Cart/                Carrito — SwiftData para invitados, API para autenticados
+│   ├── Checkout/            Selector de dirección (Google Maps), método de pago, resumen
+│   ├── Orders/               Historial y detalle de pedidos
+│   └── Account/              Cuenta, perfil, favoritos
+└── Config/                  QA.xcconfig, Prod.xcconfig
 ```
+
+Cada módulo sigue `Domain/ Data/ Presentation/ Public/` internamente. Un módulo solo puede importar el `Public/` de otro módulo (nunca su `Domain`/`Data`/`Presentation` directamente) — así se mantiene bajo acoplamiento entre features. `Domain`/`Data` son agnósticos de comercio (conceptos genéricos de e-commerce); `Presentation` es lo único específico de farmedev.
+
+---
+
+## Modo invitado (browse-as-guest)
+
+La app **no** exige login para navegar: Inicio, Compras, detalle de producto y agregar al carrito funcionan sin cuenta (carrito guardado localmente con **SwiftData**). Solo se pide iniciar sesión de forma contextual (`AppState.requireAuth`) al:
+- Marcar un producto como favorito
+- Proceder al pago (checkout)
+- Abrir el tab Cuenta
+
+Al iniciar sesión, el carrito local de invitado se fusiona automáticamente con el carrito del servidor (`MergeGuestCartUseCase`).
+
+---
+
+## Autenticación
+
+JWT con access token de vida corta (15 min) + refresh token rotativo (30 días). `Core/Networking/AuthTokenInterceptor` intercepta cualquier `401`, refresca el token una sola vez (single-flight) y reintenta la petición original — las pantallas nunca manejan expiración de tokens manualmente. Si el refresh falla, se fuerza logout y se limpia todo lo guardado en Keychain (`SessionStore.clear()`).
 
 ---
 
 ## Configuración de entorno
 
-### Mockoon (desarrollo)
-La app apunta por defecto a `http://localhost:3000`. Ejecuta Mockoon con el entorno Farmedev activo en el puerto 3000.
-
-### Dispositivo físico
-En `APIEnvironment.swift` usa `.custom(URL(string: "http://TU_IP_MAC:3000")!)` para que el dispositivo alcance Mockoon en la misma red.
-
-### Producción
-En `APIEnvironment.current` cambia `.mockoon` por `.custom(productionURL)` y construye con la configuración Release.
+1. Levanta el backend local (`farma-dev-api`): `npm run start:dev` (puerto 3000).
+2. Compila/corre con el esquema **farmedev-QA** — apunta a `localhost:3000` automáticamente.
+3. Para Google Maps (selector de dirección en Checkout), añade tu API key en `Config/QA.xcconfig` y `Config/Prod.xcconfig` (`GOOGLE_MAPS_API_KEY`). Ver `~/Downloads/farmedev-documentacion/GOOGLE_MAPS_SETUP.md`.
+4. Para producción, usa el esquema **farmedev-Prod**, con `Config/Prod.xcconfig` apuntando a la URL de Render.
 
 ---
 
 ## Convenciones del proyecto
 
-- Ningún archivo de vista supera ~120 líneas — cada pantalla delega en `Components/`
-- ViewModels en archivo propio, separados de la vista
-- Coordinadores manejan toda la navegación; las vistas no se conocen entre sí
-- `@Observable` en lugar de `ObservableObject` (iOS 17+)
-- Keychain para sesión persistente; nunca `UserDefaults` para credenciales
-- Estilos compartidos de Auth centralizados en `LoginStyles.swift`
+- `@Observable` (Observation framework) en toda la capa Presentation — nunca `ObservableObject`/Combine.
+- `Domain`/`Data` son Swift puro, sin imports de SwiftUI/Observation/SwiftData (excepto el propio `Data` de Cart, que encapsula SwiftData como detalle de implementación detrás del mismo protocolo `CartRepository`).
+- Coordinadores manejan toda la navegación; las vistas no se conocen entre sí.
+- Keychain para tokens/sesión; nunca `UserDefaults` para credenciales.
+- Ningún archivo de vista debería crecer sin límite — cada pantalla delega en `Components/`.
