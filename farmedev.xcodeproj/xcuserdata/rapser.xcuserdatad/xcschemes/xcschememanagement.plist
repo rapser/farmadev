@@ -14,10 +14,13 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>farmedev.xcscheme_^#shared#^_</key>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>464AD76C2F248A57009A4811</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
